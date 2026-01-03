@@ -1,0 +1,9 @@
+x64/
+Debug/
+Release/
+*.exe
+*.dll
+*.lib
+*.pdb
+*.obj
+*.vcxproj.user
