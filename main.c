@@ -17,7 +17,7 @@
 #include <allegro5/allegro_acodec.h>
 
 // ==========================================//
-// --- 1. DEFINI«’ES GERAIS E CONSTANTES --- //
+// --- 1. DEFINI√á√ïES GERAIS E CONSTANTES --- //
 // ==========================================//
 
 const int LARGURA_TELA = 800;
@@ -103,7 +103,7 @@ typedef struct {
 } Mamae;
 
 // ============================ //
-// --- 3. VARI¡VEIS GLOBAIS --- //
+// --- 3. VARI√ÅVEIS GLOBAIS --- //
 // ============================ //
 
 ALLEGRO_DISPLAY* janela = NULL;
@@ -206,7 +206,7 @@ ALLEGRO_SAMPLE* som_misterio = NULL;
 
 
 // ================================ // 
-// --- 4. PROT”TIPOS DE FUN«’ES --- //
+// --- 4. PROT√ìTIPOS DE FUN√á√ïES --- //
 // ================================ //
 
 void carregar_recursos_jogo();
@@ -233,7 +233,7 @@ void gerenciar_musica_opcoes(GameState novo_estado);
 bool mouse_sobre_botao(Botao* b, float mx, float my);
 
 // =============================================== //
-// --- 5. IMPLEMENTA«√O DAS FUN«’ES AUXILIARES --- //
+// --- 5. IMPLEMENTA√á√ÉO DAS FUN√á√ïES AUXILIARES --- //
 // =============================================== //
 
 bool mouse_sobre_botao(Botao* b, float mx, float my) {
@@ -379,7 +379,7 @@ void gerenciar_musica_vitoria(GameState novo_estado) {
 
 
 // ==================================== //
-// --- 6. FUN«’ES DE L”GICA DO JOGO --- //
+// --- 6. FUN√á√ïES DE L√ìGICA DO JOGO --- //
 // ==================================== //
 
 void carregar_recursos_jogo() {
@@ -401,7 +401,7 @@ void carregar_recursos_jogo() {
 
 	som_item_coletado = al_load_sample(CAMINHO_SONS "som_coleta_item.mp3");
 	if (!som_item_coletado) {
-		fprintf(stderr, "AVISO: Falha ao carregar o som 'som_coleta_item.mp3'. O som de coleta n„o funcionar·.\n");
+		fprintf(stderr, "AVISO: Falha ao carregar o som 'som_coleta_item.mp3'. O som de coleta n√£o funcionar√°.\n");
 	}
 
 	som_encontro = al_load_sample(CAMINHO_SONS "som_encontro.mp3");
@@ -418,11 +418,11 @@ void carregar_recursos_jogo() {
 	if (!img_vitoria) {
 		img_vitoria = al_load_bitmap(CAMINHO_IMAGENS "menu_win.jpg");
 		if (!img_vitoria) {
-			fprintf(stderr, "ERRO: Falha ao carregar a imagem de vitÛria.\n");
+			fprintf(stderr, "ERRO: Falha ao carregar a imagem de vit√≥ria.\n");
 		}
 	}
 	if (!img_coracao) {
-		fprintf(stderr, "AVISO: Falha ao carregar a imagem do coracao. O fallback primitivo ser· usado.\n");
+		fprintf(stderr, "AVISO: Falha ao carregar a imagem do coracao. O fallback primitivo ser√° usado.\n");
 	}
 
 
@@ -441,15 +441,27 @@ void carregar_recursos_jogo() {
 
 void configurar_sprites_personagem() {
 	char prefixo[20];
-	if (personagem_selecionado == PERSONAGEM_SKATISTA) sprintf(prefixo, "dudu_dino");
-	else sprintf(prefixo, "nina_dina");
+	if (personagem_selecionado == PERSONAGEM_SKATISTA)
+		sprintf(prefixo, "dudu_dino");
+	else
+		sprintf(prefixo, "nina_dina");
 
-	char buffer[50];
+	// SOLU√á√ÉO: Aumente para 256 ou 512
+	char buffer[256];
+
 	for (int i = 0; i < 4; i++) {
-		if (dino.sprites[i]) al_destroy_bitmap(dino.sprites[i]);
-		sprintf(buffer, CAMINHO_IMAGENS "%s_%d.png", prefixo, i + 1);
+		if (dino.sprites[i] != NULL) {
+			al_destroy_bitmap(dino.sprites[i]);
+			dino.sprites[i] = NULL;
+		}
+
+		// Use snprintf para garantir que nunca ultrapasse o tamanho do buffer
+		snprintf(buffer, sizeof(buffer), "%s%s_%d.png", CAMINHO_IMAGENS, prefixo, i + 1);
 		dino.sprites[i] = al_load_bitmap(buffer);
-		if (!dino.sprites[i]) printf("ERRO: Nao foi possivel carregar %s\n", buffer);
+
+		if (!dino.sprites[i]) {
+			printf("ERRO: Nao foi possivel carregar [%s]\n", buffer);
+		}
 	}
 }
 
@@ -673,7 +685,7 @@ bool verificar_colisao_item(Dino* d, Item* it) {
 }
 
 // ============================= //
-// --- 7. FUN«’ES DE DESENHO --- //
+// --- 7. FUN√á√ïES DE DESENHO --- //
 // ============================= //
 
 void desenhar_jogo() {
@@ -815,8 +827,8 @@ void desenhar_vitoria() {
 	}
 	else {
 		al_clear_to_color(al_map_rgb(50, 150, 50));
-		al_draw_text(fonte_debug, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, 200, ALLEGRO_ALIGN_CENTER, "VOC  VENCEU! (Imagem n„o carregada)");
-		al_draw_text(fonte_debug, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, 250, ALLEGRO_ALIGN_CENTER, "Aperte ENTER ou clique no bot„o para voltar.");
+		al_draw_text(fonte_debug, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, 200, ALLEGRO_ALIGN_CENTER, "VOC√ä VENCEU! (Imagem n√£o carregada)");
+		al_draw_text(fonte_debug, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, 250, ALLEGRO_ALIGN_CENTER, "Aperte ENTER ou clique no bot√£o para voltar.");
 	}
 
 	Botao* botoes_vitoria[] = { &botao_vitoria_playagain, &botao_vitoria_returnmenu, &botao_vitoria_nextlevel };
@@ -836,7 +848,7 @@ void desenhar_vitoria() {
 }
 
 // ================================== //
-// --- 8. FUN«√O PRINCIPAL (MAIN) --- //
+// --- 8. FUN√á√ÉO PRINCIPAL (MAIN) --- //
 // ================================== //
 
 int main(void) {
@@ -879,11 +891,11 @@ int main(void) {
 
 	som_pulo = al_load_sample(CAMINHO_SONS "som_pulo.mp3");
 	if (!som_pulo) fprintf(stderr, "Aviso: falha ao carregar 'som_pulo.mp3'\n");
-	som_colisao = al_load_sample(CAMINHO_SONS "som_colis„o.mp3");
+	som_colisao = al_load_sample(CAMINHO_SONS "som_colis√£o.mp3");
 	if (!som_colisao) {
 		som_colisao = al_load_sample(CAMINHO_SONS "som_colisao.mp3");
 		if (som_colisao) fprintf(stderr, "Aviso: carregado 'som_colisao.mp3' (fallback sem acento)\n");
-		else fprintf(stderr, "Aviso: falha ao carregar 'som_colis„o.mp3' ou 'som_colisao.mp3'\n");
+		else fprintf(stderr, "Aviso: falha ao carregar 'som_colis√£o.mp3' ou 'som_colisao.mp3'\n");
 	}
 	musica_jogo = al_load_audio_stream(CAMINHO_SONS "loop_jogo.mp3", 4, 2048);
 	if (!musica_jogo) fprintf(stderr, "Aviso: falha ao carregar 'loop_jogo.mp3'\n");
