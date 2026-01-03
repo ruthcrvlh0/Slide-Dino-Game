@@ -53,7 +53,19 @@ O jogo foi desenvolvido em **linguagem C**, utilizando a biblioteca **Allegro 5*
 
 ---
 
-## ⚙️ Observações
+## 📦 Dependências
 
-Os arquivos binários (executável, `.dll`, `.lib`, etc.) não fazem parte do repositório.  
-Para executar o jogo, é necessário compilar o projeto no **Visual Studio**, com a biblioteca **Allegro 5** corretamente configurada.
+Este projeto utiliza a biblioteca **Allegro 5**, gerenciada por meio do **NuGet** no Visual Studio.
+
+As dependências utilizadas são:
+- **Allegro** (versão 5.2.10)
+- **AllegroDeps** (versão 1.15.0)
+
+---
+
+## ⚙️ Observações
+ 
+- Para executar o jogo, é necessário compilar o projeto no **Visual Studio**, com a biblioteca **Allegro 5** corretamente configurada.
+- Este projeto utiliza a biblioteca **Allegro 5 (versão 5.2.10)**, juntamente com suas dependências (**AllegroDeps 1.15.0**), gerenciadas por meio do **NuGet** no Visual Studio.
+- As dependências do projeto estão descritas no arquivo `packages.config`. Ao abrir o projeto pela primeira vez, pode ser necessário permitir que o Visual Studio realize a restauração automática dos pacotes.
+- Durante o desenvolvimento, foi necessário manter alguns arquivos de biblioteca na pasta principal do projeto para garantir que o ambiente estivesse corretamente configurado. Esses arquivos binários não fazem parte do repositório, pois podem ser restaurados automaticamente via NuGet.
